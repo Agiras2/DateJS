@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Testing Date Management</title>
+    <!-- Importar el archivo JavaScript -->
+    <script src="resources/js/DateManagement.js" defer></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    
+</head>
+<body>
+    <div>
+        <h1>Prueba de DateManagement</h1>
+        <button onclick="testDateManagement()">Probar Métodos</button>
+    </div>
+
+    <div id="results">
+        <!-- Aquí se mostrarán los resultados de los métodos -->
+    </div>
+
+    <script type="text/javascript">
+        // Función para probar los métodos de DateManagement
+        async function testDateManagement() {
+            const dateManager = new DateManagement();
+            const resultsDiv = document.getElementById('results');
+
+            // Resultados de getCurrentDate
+            const currentDateResult = document.createElement('div');
+            currentDateResult.textContent = "Fecha y hora actual: " + dateManager.getCurrentDate();
+            resultsDiv.appendChild(currentDateResult);
+
+            // Resultados de getCurrentLocalDate
+            const currentLocalDateResult = document.createElement('div');
+            currentLocalDateResult.textContent = "Fecha actual (LocalDate): " + dateManager.getCurrentLocalDate();
+            resultsDiv.appendChild(currentLocalDateResult);
+
+            // Resultados de getCurrentDateFormatted
+            const currentDateFormattedResult = document.createElement('div');
+            currentDateFormattedResult.textContent = "Fecha actual formateada: " + dateManager.getCurrentDateFormatted();
+            resultsDiv.appendChild(currentDateFormattedResult);
+
+            // Usar Flatpickr para seleccionar la fecha
+            const selectedDate = await dateManager.chooseDate();
+            console.log("Fecha seleccionada:", selectedDate);
+            const formattedSelectedDate = dateManager.formatFlatpickrDate(selectedDate);
+            console.log("Fecha seleccionada formateada:", formattedSelectedDate);
+
+            // Resultados de la fecha seleccionada
+            const selectedDateResult = document.createElement('div');
+            selectedDateResult.textContent = "Fecha seleccionada: " + selectedDate;
+            resultsDiv.appendChild(selectedDateResult);
+
+            // Resultados de la fecha seleccionada formateada
+            const formattedSelectedDateResult = document.createElement('div');
+            formattedSelectedDateResult.textContent = "Fecha seleccionada formateada: " + formattedSelectedDate;
+            resultsDiv.appendChild(formattedSelectedDateResult);
+
+            // Pedir al usuario que ingrese una fecha para validar
+            const validatedDate = dateManager.validateDateInput("Ingrese una fecha");
+            console.log("Fecha validada:", validatedDate);
+
+            // Resultados de la fecha validada
+            const validatedDateResult = document.createElement('div');
+            validatedDateResult.textContent = "Fecha validada: " + validatedDate;
+            resultsDiv.appendChild(validatedDateResult);
+
+            // Formatear la fecha validada
+            const formattedValidatedDate = dateManager.formatValidatedDate(validatedDate);
+            console.log("Fecha validada formateada:", formattedValidatedDate);
+
+            // Resultados de la fecha validada formateada
+            const formattedValidatedDateResult = document.createElement('div');
+            formattedValidatedDateResult.textContent = "Fecha validada formateada: " + formattedValidatedDate;
+            resultsDiv.appendChild(formattedValidatedDateResult);
+        }
+    </script>
+</body>
+</html>
